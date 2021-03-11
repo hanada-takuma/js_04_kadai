@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANA-Chatbot</HANA-Chatbot></title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+   <!-- 自分やユーザーの情報    
+　 <h4 class="me" user_id="1">あなたはユーザー1です</h4>
+　 <h4 class="partner" thread_id="1">相手</h4>
+　 <div class="users">
+    <button class="user" user_id="2">ユーザー2</button>
+　 </div> -->
+<div class="your_container"></div>
+
+<script>
+ var firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    databaseURL: "",
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  // データベースを使いますよ
+　const newPostRef = firebase.database().ref();
+　// 送信ボタンをクリックされたら次の処理をする
+　$("#send").on("click", function () {
+    $("#username").val();
+　　　　　// データを登録で送る
+          newPostRef.push({
+        //名前
+        username: $("#username").val(),
+        //テキストエリア
+        text: $("#text").val(),
+      })
+      // 文字を空にする
+      $("#username").val(""); //空にする
+      $("text").val(""); //空にする
+    });
+    // 受信処理
+    newPostRef.on("child_added", function (data) {
+      //ここに保存されたデータが全て入ってくる
+      // function (data)のdataにfirebaseのデータが入ってくる
+      let v = data.val();
+      // let k = data.key; //今回は使いません
+      //console.logで受信=firebaseに登録されている中身を確認しよう！
+    //   console.log(v, 'firebaseのデータが入ってきます');
+    
+      //テンプレートリテラル `` を活用して変数にhtmlを埋め込もう！
+      let str = `<p>${v.username}<br>${v.text}</p>`;
+      // ここでデータをhtmlに埋め込む prependには変数を埋め込もう！
+      $("#output").prepend(str);
+    });
+    $("xxx").on("keydown", function (event) {
+      // eventの中身をconsole.logでみてみよう！
+    })
+</script>
+</body>
+
+</html>
