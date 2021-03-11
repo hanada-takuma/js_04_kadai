@@ -1,26 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HANA-Chatbot</HANA-Chatbot></title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 8行目、10行目がなぜ必要なのかわからない -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <title>HANA-Chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-   <!-- 自分やユーザーの情報    
-　 <h4 class="me" user_id="1">あなたはユーザー1です</h4>
-　 <h4 class="partner" thread_id="1">相手</h4>
-　 <div class="users">
-    <button class="user" user_id="2">ユーザー2</button>
-　 </div> -->
-<div class="your_container"></div>
-
-<script>
- var firebaseConfig = {
+    <div class="panel-default">
+        <div class="panel-heading">
+            <p>HANA-Chat</p>
+        </div>
+        <div id="scroller" class="panel-body">
+            <ul id='messages'>
+            </ul>
+        </div>
+        <div class="panel-footer">
+            <input type='text' class="form-control" id="nameInput" placeholder="ユーザー名を入力してください">
+        </div>
+        <div class="panel-footer">
+            <input type='text' class="form-control" id="messageInput" placeholder="メッセージ内容を入力してください">
+        </div>
+    </div>
+</body>
+    <script src="app.js"></script>
+    <script>
+      var firebaseConfig = {
     apiKey: "",
     authDomain: "",
     projectId: "",
@@ -29,43 +38,64 @@
     appId: "",
     databaseURL: "",
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
 
-  // データベースを使いますよ
-　const newPostRef = firebase.database().ref();
-　// 送信ボタンをクリックされたら次の処理をする
-　$("#send").on("click", function () {
-    $("#username").val();
-　　　　　// データを登録で送る
-          newPostRef.push({
-        //名前
-        username: $("#username").val(),
-        //テキストエリア
-        text: $("#text").val(),
-      })
-      // 文字を空にする
-      $("#username").val(""); //空にする
-      $("text").val(""); //空にする
-    });
-    // 受信処理
-    newPostRef.on("child_added", function (data) {
-      //ここに保存されたデータが全て入ってくる
-      // function (data)のdataにfirebaseのデータが入ってくる
-      let v = data.val();
-      // let k = data.key; //今回は使いません
-      //console.logで受信=firebaseに登録されている中身を確認しよう！
-    //   console.log(v, 'firebaseのデータが入ってきます');
-    
-      //テンプレートリテラル `` を活用して変数にhtmlを埋め込もう！
-      let str = `<p>${v.username}<br>${v.text}</p>`;
-      // ここでデータをhtmlに埋め込む prependには変数を埋め込もう！
-      $("#output").prepend(str);
-    });
-    $("xxx").on("keydown", function (event) {
-      // eventの中身をconsole.logでみてみよう！
-    })
-</script>
-</body>
-
+    </script>
 </html>
+
+
+
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANA-Chatbot</HANA-Chatbot></title>
+    <link rel="stylesheet" href="style.css">
+       
+　 <h4 class="me" user_id="1">あなたはユーザー1です</h4>
+　 <h4 class="partner" thread_id="1">相手</h4>
+　 <div class="users">
+    <button class="user" user_id="2">ユーザー2</button>
+　 </div> -->
+<!-- <div class="your_container"></div>
+
+<script>
+ var firebaseConfig = {
+  apiKey: "AIzaSyC7ULSbOKq79vm7OBqGZTxt-_4FZQU8Rg0",
+  authDomain: "js-04-kadai-e6a8b.firebaseapp.com",
+  projectId: "js-04-kadai-e6a8b",
+  storageBucket: "js-04-kadai-e6a8b.appspot.com",
+  messagingSenderId: "74397706060",
+  appId: "1:74397706060:web:589a0d9e2ca3eaf2f451e9",
+  databaseURL: "https://js-04-kadai-e6a8b-default-rtdb.firebaseio.com/",
+  };
+ //         //名前
+//         username: $("#username").val(),
+//         //テキストエリア
+//         text: $("#text").val(),
+//       })
+      // 文字を空にする
+    //   $("#username").val(""); //空にする
+    //   $("text").val(""); //空にする -->
+    <!-- // }); -->
+    <!-- // 受信処理 -->
+    <!-- // newPostRef.on("child_added", function (data) { -->
+      <!-- //ここに保存されたデータが全て入ってくる -->
+      <!-- // function (data)のdataにfirebaseのデータが入ってくる -->
+      <!-- // let v = data.val(); -->
+      <!-- // let k = data.key; //今回は使いません -->
+      <!-- //console.logで受信=firebaseに登録されている中身を確認しよう！ -->
+    <!-- //   console.log(v, 'firebaseのデータが入ってきます'); -->
+    
+      <!-- //テンプレートリテラル `` を活用して変数にhtmlを埋め込もう！ -->
+      <!-- // let str = `<p>${v.username}<br>${v.text}</p>`; -->
+      <!-- // ここでデータをhtmlに埋め込む prependには変数を埋め込もう！ -->
+    <!-- //   $("#output").prepend(str); -->
+    <!-- // }); -->
+    <!-- // $("xxx").on("keydown", function (event) { -->
+      <!-- // eventの中身をconsole.logでみてみよう！ -->
+<!-- //     })
+// </script>
+// </body>
+
+// </html> --> 
